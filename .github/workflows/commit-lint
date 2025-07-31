@@ -1,0 +1,33 @@
+name: Commit Message Lint
+
+on:
+  pull_request:
+    branches: [qa]
+
+jobs:
+  commit-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate commit messages
+        run: |
+          echo "Checking commit messages..."
+          # Get commit messages between PR branch and main
+          COMMITS=$(git log origin/main..HEAD --pretty=format:"%s")
+          
+          FAILED=0
+          for COMMIT in "$COMMITS"; do
+            if ! echo "$COMMIT" | grep -Eq "^(feat|fix|chore|docs|style|refactor|perf|test|build|ci|revert)(\(.+\))?: .+"; then
+              echo "❌ Invalid commit message: $COMMIT"
+              FAILED=1
+            fi
+          done
+          
+          if [ $FAILED -ne 0 ]; then
+            echo "One or more commit messages do not follow Conventional Commits."
+            exit 1
+          fi
+
+          echo "✅ All commit messages are valid."
