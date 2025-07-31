@@ -1,0 +1,46 @@
+name: CI - Lint, Test, Build
+
+on:
+  pull_request:
+    branches: [main]   # Run only on PRs targeting main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Replace with your lint command
+      - name: Run Linter
+        run: |
+          echo "Running lint..."
+          # Example: pylint ./src  (Python)
+          # or: shellcheck ./scripts/*.sh  (Shell scripts)
+          # Put your actual lint command here
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Replace with your test command
+      - name: Run Tests
+        run: |
+          echo "Running tests..."
+          # Example: pytest tests/
+          # or: bash run-tests.sh
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Replace with your build command
+      - name: Build
+        run: |
+          echo "Building project..."
+          # Example: make build
+          # or: ./build.sh
