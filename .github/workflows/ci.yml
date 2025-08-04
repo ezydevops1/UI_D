@@ -1,17 +1,22 @@
 name: CI
-
-on:
+'on':
   pull_request:
-    branches: [ "main" ]
-
+    branches:
+    - main
+    - dev
+    - qa
+    - prod
+  push:
+    branches:
+    - main
 jobs:
   build-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-      - run: npm install
-      - run: npm test
+    - uses: actions/checkout@v4
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    - run: npm install
+    - run: npm test
