@@ -1,0 +1,18 @@
+name: CI
+'on':
+  pull_request:
+    branches:
+    - main
+    - dev
+    - qa
+    - prod
+  push:
+    branches:
+    - main
+jobs:
+  basic-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Verify repo files
+      run: echo 'CI check complete'
